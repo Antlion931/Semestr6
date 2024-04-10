@@ -1,0 +1,23 @@
+# Doxyfile configuration file
+
+# Project name
+PROJECT_NAME = "math_c_loops"
+
+# Project version
+PROJECT_NUMBER = 1.0
+
+# Specify the directories to scan for input files
+INPUT = math_c_loops.h math_c_loops.c
+
+# Output directory for generated documentation
+OUTPUT_DIRECTORY = ./docs
+
+# Create a separate directory for HTML output
+GENERATE_HTML = YES
+
+# Enable/disable linking between documented members
+HTML_DYNAMIC_SECTIONS = YES
+
+# Generate a tree view of all classes, files, namespaces, etc.
+GENERATE_TREEVIEW = YES
+
