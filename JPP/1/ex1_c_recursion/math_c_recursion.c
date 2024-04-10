@@ -39,4 +39,28 @@ uint64_t r_factorial(uint64_t n) {
     return factorial_recursive(n);
 }
 
+/**
+ * @brief Calculate the gcd of numbers a and b using recursion.
+ * @param a,b numbers.
+ * @return greatest common divisor of a and b.
+ *
+ * Example usage:
+ * @code{.c}
+ * #include "math_c_recursion.h"
+ * #include <stdio.h>
+ *
+ * int main() {
+ *    int64_t result = r_gcd(12, 15); // Calculate gcd of 12 and 15
+ *    printf("GCD of 12 and 15 is: %ld\n", result); // Output: 3
+ *    return 0;
+ * }
+ * @endcode
+ */
+uint64_t r_gcd(uint64_t a, uint64_t b) {
+    if (b == 0) {
+        return a;
+    }
+
+    return r_gcd(b, a % b);
+}
 

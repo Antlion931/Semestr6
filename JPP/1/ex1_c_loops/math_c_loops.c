@@ -37,3 +37,36 @@ uint64_t l_factorial(uint64_t n) {
     return result;
 }
 
+/**
+ * @brief Calculate the greatest common divisor of two given integers using a loop.
+ * @param a The first integer.
+ * @param b The second integer.
+ * @return The greatest common divisor of the two given integers.
+ *
+ * Example usage:
+ * @code{.c}
+ * #include "math_c_loops.h"
+ * #include <stdio.h>
+ *
+ * int main() {
+ *     uint64_t result = l_gcd(12, 18); // Calculate GCD of 12 and 18
+ *     printf("GCD of 12 and 18 is: %ld\n", result); // Output: 6
+ *     return 0;
+ * }
+ * @endcode
+ */
+uint64_t l_gcd(uint64_t a, uint64_t b) {
+    if (a > b) {
+        uint64_t temp = a;
+        a = b;
+        b = temp;
+    }
+
+    while (a != 0) {
+        uint64_t temp = a;
+        a = b % a;
+        b = temp;
+    }
+
+    return b;
+}

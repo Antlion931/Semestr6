@@ -5,5 +5,7 @@
 
 uint64_t r_factorial(uint64_t n);
 
+uint64_t r_gcd(uint64_t a, uint64_t b);
+
 #endif /* MATH_C_RECURSION_H */
 
