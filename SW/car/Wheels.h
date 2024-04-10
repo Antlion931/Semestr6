@@ -20,8 +20,6 @@
 #ifndef Wheels_h
 #define Wheels_h
 
-
-
 class Wheels {
     public: 
 
@@ -63,14 +61,17 @@ class Wheels {
 
         static Wheels* getInstance();
 
-        uint8_t getSpeedRight();
-        uint8_t getSpeedLeft();
+        uint32_t getSpeedRight();
+        uint32_t getSpeedLeft();
 
     private: 
         Wheels();
         static Wheels* instance;
         LiquidCrystal_I2C* dashboard = nullptr;
         void updateDashboard();
+
+        int speedLeft;
+        int speedRight;
 
         int pinsRight[3];
         int pinsLeft[3];
@@ -80,6 +81,13 @@ class Wheels {
 
 };
 
+enum MotorState {
+  Forward,
+  Backward,
+  Stop,
+};
+
+void set_Dashboard(LiquidCrystal_I2C* dashboard, int speedLeft, int speedRight, MotorState left, MotorState right);
 
 
 #endif

@@ -17,10 +17,8 @@ int Wheels::getDiod() {
   return this->diod;
 }
 
-const long speed_multiplayer = 10;
-
 Wheels::Wheels() { 
-  Timer1.initialize();
+  //Timer1.initialize();
 }
 
 Wheels* Wheels::getInstance() {
@@ -31,12 +29,12 @@ Wheels* Wheels::getInstance() {
   return instance;
 }
 
-uint8_t Wheels::getSpeedRight() {
-    return pinsRight[2];
+uint32_t Wheels::getSpeedRight() {
+    return analogRead(this->pinsRight[2]);
 }
 
-uint8_t Wheels::getSpeedLeft() {
-    return pinsLeft[2];
+uint32_t Wheels::getSpeedLeft() {
+    return analogRead(this->pinsLeft[2]);
 }
 
 void Wheels::attachRight(int pF, int pB, int pS)
@@ -62,18 +60,21 @@ void Wheels::attachLeft(int pF, int pB, int pS)
 
 void Wheels::setSpeedRight(uint8_t s)
 {
-    analogWrite(this->pinsRight[2], s);
+    this->speedRight = s;
+    analogWrite(this->pinsRight[2], this->speedRight);
 }
 
 void Wheels::setSpeedLeft(uint8_t s)
 {
-    analogWrite(this->pinsLeft[2], s);
+    this->speedLeft = s;
+    analogWrite(this->pinsLeft[2], this->speedLeft);
 }
 
 void Wheels::setSpeed(uint8_t s)
 {
     setSpeedLeft(s);
     setSpeedRight(s);
+    updateDashboard();
 }
 
 void Wheels::attach(int pRF, int pRB, int pRS, int pLF, int pLB, int pLS)
@@ -117,7 +118,8 @@ void Wheels::back()
 {
     this->backLeft();
     this->backRight();
-    timerUpdate();
+    this->updateDashboard();
+    //timerUpdate();
 }
 
 void Wheels::stopLeft()
@@ -134,7 +136,7 @@ void Wheels::stopRight()
 
 void Wheels::stop()
 {
-    Timer1.detachInterrupt();
+    //Timer1.detachInterrupt();
     this->stopLeft();
     this->stopRight();
     this->updateDashboard();
@@ -147,22 +149,14 @@ void doBeep() {
 }
 
 void Wheels::timerUpdate() {
-  Timer1.detachInterrupt();
-  Timer1.attachInterrupt(doBeep, 5000000);
+  //Timer1.detachInterrupt();
+  //Timer1.attachInterrupt(doBeep, 5000000);
 }
 
 void Wheels::setDashboard(LiquidCrystal_I2C* dashboard) {
   this->dashboard = dashboard;
+  this->updateDashboard();
 }
-
-enum MotorState {
-  Forward,
-  Backward,
-  Stop,
-};
-
-
-
 
 String reverseString(String *original) {
   String result = "";
@@ -178,6 +172,7 @@ String reverseString(String *original) {
 
 // Dashboard is lcd with 16x2 size
 void set_Dashboard(LiquidCrystal_I2C* dashboard, int speedLeft, int speedRight, MotorState left, MotorState right) {
+    dashboard->clear();
     dashboard->setCursor(0,0);
 
     switch (left) {
@@ -222,6 +217,22 @@ void set_Dashboard(LiquidCrystal_I2C* dashboard, int speedLeft, int speedRight, 
 
 
 void Wheels::updateDashboard() {
-    set_Dashboard(this->dashboard, this->getSpeedLeft(), this->getSpeedRight(), MotorState::Forward, MotorState::Stop);
+    MotorState leftState = MotorState::Stop;
+
+    if (digitalRead(this->pinsLeft[0]) == LOW && digitalRead(this->pinsLeft[1]) == HIGH) {
+      leftState = MotorState::Backward;
+    } else if (digitalRead(this->pinsLeft[0]) == HIGH && digitalRead(this->pinsLeft[1]) == LOW) {
+      leftState = MotorState::Forward;
+    }
+
+    MotorState rightState = MotorState::Stop;
+
+    if (digitalRead(this->pinsRight[0]) == LOW && digitalRead(this->pinsRight[1]) == HIGH) {
+      rightState = MotorState::Backward;
+    } else if (digitalRead(this->pinsRight[0]) == HIGH && digitalRead(this->pinsRight[1]) == LOW) {
+      rightState = MotorState::Forward;
+    }
+
+    set_Dashboard(this->dashboard, this->getSpeedLeft(), this->getSpeedRight(), leftState, rightState);
 }
 

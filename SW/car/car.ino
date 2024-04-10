@@ -3,6 +3,28 @@
 #include "TimerOne.h"
 
 #include <Arduino.h>
+
+#if FLASHEND >= 0x3FFF  // For 16k flash or more, like ATtiny1604. Code does not fit in program memory of ATtiny85 etc.
+// !!! Enabling B&O disables detection of Sony, because the repeat gap for SONY is smaller than the B&O frame gap :-( !!!
+//#define DECODE_BEO // Bang & Olufsen protocol always must be enabled explicitly. It has an IR transmit frequency of 455 kHz! It prevents decoding of SONY!
+#endif
+#if defined(DECODE_BEO)
+#define RECORD_GAP_MICROS 16000 // always get the complete frame in the receive buffer, but this prevents decoding of SONY!
+#endif
+// etc. see IRremote.hpp
+//
+
+#if !defined(RAW_BUFFER_LENGTH)
+#  if RAMEND <= 0x4FF || RAMSIZE < 0x4FF
+#define RAW_BUFFER_LENGTH  130  // 750 (600 if we have only 2k RAM) is the value for air condition remotes. Default is 112 if DECODE_MAGIQUEST is enabled, otherwise 100.
+#  elif RAMEND <= 0x8FF || RAMSIZE < 0x8FF
+#define RAW_BUFFER_LENGTH  600  // 750 (600 if we have only 2k RAM) is the value for air condition remotes. Default is 112 if DECODE_MAGIQUEST is enabled, otherwise 100.
+#  else
+#define RAW_BUFFER_LENGTH  750  // 750 (600 if we have only 2k RAM) is the value for air condition remotes. Default is 112 if DECODE_MAGIQUEST is enabled, otherwise 100.
+#  endif
+#endif
+
+
 #include <IRremote.hpp> 
 
 const uint16_t IRB_ONE = 0x45;
@@ -32,8 +54,8 @@ const int IN2 = 6;
 const int IN3 = 5;
 const int IN4 = 4;
 
-const int EnA = 11;
-const int EnB = 3;
+const int EnA = A0;
+const int EnB = A1;
 
 const int IR_RECEIVE_PIN = 2;
 
@@ -53,19 +75,13 @@ void setup() {
 
   wheels->attachLeft(IN1, IN2, EnA);
   wheels->attachRight(IN4, IN3, EnB);
-  wheels->setSpeedLeft(100);
-  wheels->setSpeedRight(100);
   wheels->setDiod(DIOD);
   wheels->setDashboard(&lcd);
-  wheels->back();
+  wheels->setSpeed(100);
 }
 
 void loop() { 
       if (IrReceiver.decode()) {
-
-        /*
-         * Print a summary of received data
-         */
         if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
             Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
             // We have an unknown protocol here, print extended info
@@ -82,10 +98,12 @@ void loop() {
             wheels->forward();
             break;
           case IRB_LEFT:
-            wheels->forwardLeft();
+            wheels->forwardRight();
+            wheels->backLeft();
             break;
           case IRB_RIGHT:
-            wheels->forwardRight();
+            wheels->forwardLeft();
+            wheels->backRight();
             break;
           case IRB_DOWN:
             wheels->back();
@@ -100,7 +118,7 @@ void loop() {
             wheels->setSpeed(150);
             break;
           case IRB_THREE:
-            wheels->setSpeed(200);
+            wheels->setSpeed(300);
             break;
         }
     }
