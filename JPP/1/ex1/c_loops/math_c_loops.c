@@ -78,7 +78,7 @@ uint64_t l_gcd(uint64_t a, uint64_t b) {
  * @param a The coefficient of x.
  * @param b The coefficient of y.
  * @param c The constant value.
- * @return A structure containing the solution of the linear diophantine equation.
+ * @return A structure containing the solution of the linear diophantine equation. There is caveat when a=b=c=0, then the function will return a solution {true, 0, 0}.
  *
  * Example usage:
  * @code{.c}
@@ -86,10 +86,10 @@ uint64_t l_gcd(uint64_t a, uint64_t b) {
  * #include <stdio.h>
  *
  * int main() {
- *  L_LinearSolution solution = l_solve_linear_diophantine(3, 5, 12); // Solve 3x + 5y = 12
+ *  L_LinearSolution solution = l_solve_linear_diophantine(12, 15, 3); // Solve 12x + 15y = 3
  *    if (solution.is_solution) {
  *      printf("Solution: x = %ld, y = %ld\n", solution.x, solution.y);
- *      // Output: Solution: x = 2, y = 2
+ *      // Output: Solution: x = -1, y = 1
  *      return 0;
  *    }
  *    printf("No solution found.\n");
@@ -131,8 +131,11 @@ struct L_LinearSolution l_solve_linear_diophantine(int64_t a, int64_t b, int64_t
         b = a;
         a = remainder;
     }
-
-    if (b != 0 && c % b == 0) {
+    
+    if (c == 0 && a == 0 && b == 0) {
+        struct L_LinearSolution result = {true, 0, 0};
+        return result;
+    } else if (b != 0 && c % b == 0) {
         int64_t k = c / b;
 
         old_x *= k;
@@ -140,7 +143,7 @@ struct L_LinearSolution l_solve_linear_diophantine(int64_t a, int64_t b, int64_t
 
         struct L_LinearSolution result = {true, old_x, old_y};
         return result;
-    } else {
+    }else {
         struct L_LinearSolution result = {false, 0, 0};
         return result;
     }
