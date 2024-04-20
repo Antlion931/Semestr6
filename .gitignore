@@ -1,3 +1,5 @@
+*.ali
+*.out
 *.aux
 CMakeFiles/
 CMakeCache.txt
