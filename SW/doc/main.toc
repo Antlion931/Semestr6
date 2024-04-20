@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Słownik Pojęć}{1}{}%
+\contentsline {section}{\numberline {2}Zastosowania urządzenia}{1}{}%
+\contentsline {section}{\numberline {3}Ogólne zasady bezpieczeństwa}{2}{}%
+\contentsline {section}{\numberline {4}Jak działa drukarka}{2}{}%
+\contentsline {section}{\numberline {5}Przypadki Użycia}{3}{}%

@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include "Wheels.h"
-#include "TimerOne.h"
+
 
 #define SET_MOVEMENT(side,f,b) digitalWrite( side[0], f);\
                                digitalWrite( side[1], b)
@@ -18,7 +18,7 @@ int Wheels::getDiod() {
 }
 
 Wheels::Wheels() { 
-  //Timer1.initialize();
+  this->is_going_back = false;
 }
 
 Wheels* Wheels::getInstance() {
@@ -30,11 +30,11 @@ Wheels* Wheels::getInstance() {
 }
 
 uint32_t Wheels::getSpeedRight() {
-    return analogRead(this->pinsRight[2]);
+    return this->speedRight;
 }
 
 uint32_t Wheels::getSpeedLeft() {
-    return analogRead(this->pinsLeft[2]);
+    return this->speedLeft;
 }
 
 void Wheels::attachRight(int pF, int pB, int pS)
@@ -85,12 +85,18 @@ void Wheels::attach(int pRF, int pRB, int pRS, int pLF, int pLB, int pLS)
 
 void Wheels::forwardLeft() 
 {
+      if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     SET_MOVEMENT(pinsLeft, HIGH, LOW);
     this->updateDashboard();
 }
 
 void Wheels::forwardRight() 
 {
+      if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     SET_MOVEMENT(pinsRight, HIGH, LOW);
     this->updateDashboard();
 }
@@ -109,6 +115,9 @@ void Wheels::backRight()
 
 void Wheels::forward()
 {
+      if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     this->forwardLeft();
     this->forwardRight();
     this->updateDashboard();
@@ -119,38 +128,42 @@ void Wheels::back()
     this->backLeft();
     this->backRight();
     this->updateDashboard();
-    //timerUpdate();
+
+    if (!this->is_going_back) {
+        this->is_going_back = true;
+    }
+}
+
+bool Wheels::isGoingBack() {
+  return this->is_going_back;
 }
 
 void Wheels::stopLeft()
 {
+      if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     SET_MOVEMENT(pinsLeft, LOW, LOW);
     this->updateDashboard();
 }
 
 void Wheels::stopRight()
 {
+      if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     SET_MOVEMENT(pinsRight, LOW, LOW);
     this->updateDashboard();
 }
 
 void Wheels::stop()
 {
-    //Timer1.detachInterrupt();
+    if (this->is_going_back) {
+      this->is_going_back = false;
+    }
     this->stopLeft();
     this->stopRight();
     this->updateDashboard();
-}
-
-void doBeep() {
-  Wheels* w = Wheels::getInstance();
-
-  digitalWrite(w->getDiod(), digitalRead(w->getDiod()) ^ 1);
-}
-
-void Wheels::timerUpdate() {
-  //Timer1.detachInterrupt();
-  //Timer1.attachInterrupt(doBeep, 5000000);
 }
 
 void Wheels::setDashboard(LiquidCrystal_I2C* dashboard) {
@@ -167,8 +180,6 @@ String reverseString(String *original) {
 
   return result;
 }
-
-
 
 // Dashboard is lcd with 16x2 size
 void set_Dashboard(LiquidCrystal_I2C* dashboard, int speedLeft, int speedRight, MotorState left, MotorState right) {

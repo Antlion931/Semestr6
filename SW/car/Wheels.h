@@ -64,11 +64,15 @@ class Wheels {
         uint32_t getSpeedRight();
         uint32_t getSpeedLeft();
 
+        bool isGoingBack();
+
     private: 
         Wheels();
         static Wheels* instance;
         LiquidCrystal_I2C* dashboard = nullptr;
         void updateDashboard();
+
+        bool is_going_back;
 
         int speedLeft;
         int speedRight;

@@ -54,15 +54,27 @@ const int IN2 = 6;
 const int IN3 = 5;
 const int IN4 = 4;
 
-const int EnA = A0;
-const int EnB = A1;
+const int EnA = A2;
+const int EnB = A3;
 
 const int IR_RECEIVE_PIN = 2;
+
+volatile int cnt0, cnt1;
 
 typedef int cm;
 
 LiquidCrystal_I2C lcd(LCDAddress, 16, 2);
 Wheels* wheels = Wheels::getInstance();
+
+void doBeep(void) {
+  Wheels* w = Wheels::getInstance();
+
+  Serial.println("BEEP");
+  Serial.println(digitalRead(w->getDiod()));
+
+  digitalWrite(w->getDiod(), digitalRead(w->getDiod()) ^ 1);
+}
+
 
 void setup() {
 
@@ -73,6 +85,8 @@ void setup() {
   lcd.init();
   lcd.backlight();
 
+  Timer1.initialize(300000);
+  
   wheels->attachLeft(IN1, IN2, EnA);
   wheels->attachRight(IN4, IN3, EnB);
   wheels->setDiod(DIOD);
@@ -80,7 +94,7 @@ void setup() {
   wheels->setSpeed(100);
 }
 
-void loop() { 
+void loop() {  
       if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
             Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
@@ -95,20 +109,35 @@ void loop() {
 
         switch (IrReceiver.decodedIRData.command) {
           case IRB_UP:
+            if (wheels->isGoingBack()) {
+              Timer1.detachInterrupt();
+            }
             wheels->forward();
             break;
           case IRB_LEFT:
+            if (wheels->isGoingBack()) {
+              Timer1.detachInterrupt();
+            }
             wheels->forwardRight();
             wheels->backLeft();
             break;
           case IRB_RIGHT:
+            if (wheels->isGoingBack()) {
+              Timer1.detachInterrupt();
+            }
             wheels->forwardLeft();
             wheels->backRight();
             break;
           case IRB_DOWN:
+            if (!wheels->isGoingBack()) {
+                Timer1.attachInterrupt(doBeep);
+            }
             wheels->back();
             break;
           case IRB_OK:
+            if (wheels->isGoingBack()) {
+              Timer1.detachInterrupt();
+            }
             wheels->stop();
             break;
           case IRB_ONE:
@@ -118,9 +147,16 @@ void loop() {
             wheels->setSpeed(150);
             break;
           case IRB_THREE:
-            wheels->setSpeed(300);
+            wheels->setSpeed(200);
             break;
         }
+    } else {
+      if (wheels->isGoingBack()) {
+              Timer1.detachInterrupt();
+            }
+            wheels->stop();
     }
+    Serial.println("------");
+    delay(100);
 }
 

@@ -1,0 +1,343 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage[T1]{polski}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{comment}
+
+\title{Dokumentacja projektu: Drukarka 3D}
+\author{Albert Kołodziejski, Agata Groszek}
+
+\begin{document}
+
+\date{}
+\maketitle
+
+\tableofcontents
+
+\section{Słownik Pojęć}
+\begin{description}[align=left]
+    \item[Filament] - To rodzaj materiału w formie szpulki, najczęściej plastikowego lub metalicznego, który jest używany przez drukarkę 3D do wytwarzania obiektów poprzez rozpuszczanie i aplikację na podłoże.
+    \item[Ekstruder] - głowica drukująca lub ekstruder jest częścią drukarki, która składa się z dyszy, koła szczerbionego (tzw. radełka), krążka pośredniego i wentylatora.
+    \item[Stół] - Określenie na podgrzewany obszar, na którym drukowane są obiekty 3D.
+\end{description}
+
+\section{Zastosowania urządzenia}
+Drukarka 3D jest urządzeniem służącym do wytwarzania trójwymiarowych obiektów poprzez nakładanie warstw materiału na siebie. 
+
+
+\newpage
+\section{Ogólne zasady bezpieczeństwa}
+\begin{enumerate}[label=\arabic*.]
+    \item Drukarka powinna być umieszczona na stabilnej powierzchni, aby uniknąć przypadkowego przewrócenia się.
+    \item Użytkownik korzystający z drukarki 3D powinien być osobą pełnoletnią lub korzystać z niej pod nadzorem osoby dorosłej.
+    \item Podczas drukowania obiektów drukarka powinna być nadzorowana, aby zapobiec możliwym awariom lub niebezpieczeństwom.
+    \item  Drukarka powinna być używana w suchym, dobrze wentylowanym pomieszczeniu, aby uniknąć zagrożeń związanych z ewentualnymi emisjami gazów roztapiającego się filamentu.
+    \item Drukarka powinna być umieszczona w odległości od innych obiektów, aby zapobiec kolizjom lub przeszkodom w procesie drukowania.
+    \item  Przed rozpoczęciem drukowania upewnij się, że temperatura otoczenia jest odpowiednia dla używanego filamentu, oraz że druk nie będzie narażony na zbyt silne powiewy wiatru jak i zbyt silne promienie słoneczne, aby zapewnić optymalne warunki drukowania.
+    \item Ekstruder i stół podczas pracy drukarki nagrzewa się do wysokich temperatór, dlatego podczas pracy, jak i zaraz po niej nie należy dotykać go, grozi to oparzeniami.
+\end{enumerate}
+
+\section{Jak działa drukarka}
+\begin{enumerate}[label=\arabic*.]
+    \item Wykorzystywany jest układ kartezjański: stół porusza się w przód i w tył, a głowica w lewo i w prawo oraz w górę i w dół. 
+    \item  Przed rozpoczęciem drukowania, skonfiguruj drukarkę, aby odpowiednio dostosować ją do używanego filamentu i zamierzonego celu drukowania.
+    \item Załaduj filament do ekstrudera.
+    \item Przygotuj plik G-code, który zawiera instrukcje dotyczące drukowania obiektu, a następnie umieść go na karcie SD. Włóż kartę SD do drukarki i uruchom proces drukowania.
+    \item Przed rozpoczęciem druku, stół oraz ekstruder nagrzeją się do odpowiednich temperatur. 
+
+\newpage
+\section{Przypadki Użycia}
+
+\begin{comment}
+
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{pozwala na odwołania w innych opisach} & \multicolumn{1}{l|}{ biurokracja/zliczanie} & \multicolumn{1}{|l|}{ }\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} } & \multicolumn{3}{l|}{\textbf{Typ opisu:} } \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} } \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} } & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} } \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:}} \\
+\multicolumn{6}{|l|}{\textbf{Asocjacja:} } \\
+\multicolumn{6}{|l|}{\textbf{Zawieranie:} } \\
+\multicolumn{6}{|l|}{\textbf{Rozszerzenie:} } \\
+\multicolumn{6}{|l|}{\textbf{Generalizacja:} } \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. } \\
+\multicolumn{6}{|l|}{2.} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Przepływy poboczne:}} \\
+\multicolumn{6}{|l|}{1a) } \\ \hline
+\multicolumn{6}{|l|}{\textbf{Przepływy alternatywne/wyjątkowe:}} \\
+\multicolumn{6}{|l|}{1. } \\ \hline
+\end{tabular}
+
+\newpage
+
+\end{comment}
+
+\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{4m}|p{4cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Kalibracja (Wizard)} & \multicolumn{1}{l|}{1} & \multicolumn{1}{|l|}{niski}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} ogólny } \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System przechodzi przez} \\ 
+\multicolumn{6}{|l|}{kolejne kroki procesu kalibracji.} \\
+\multicolumn{6}{|l|}{Użytkownik wykonuje polecenia podane przez system} \\
+\multicolumn{6}{|l|}{i nadzoruje proces kalibracji.} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} pierwsze uruchomienie} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{drukarki lub wybranie w menu} & \multicolumn{3}{l|}{zewnętrzny} \\
+\multicolumn{3}{|l|}{ opcji Calibration->Wizard} & \multicolumn{3}{l|}{} \\\hline
+\multicolumn{6}{|l|}{\textbf{Asocjacja:} Powoduje wystartowanie: Selftest, Kalibracja XYZ,} \\
+\multicolumn{6}{|l|}{\textbf{Asocjacja:} Ładowanie filamentu, Kalibracja pierwszej warstwy} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Selftest} \\
+\multicolumn{6}{|l|}{2. Kalibracja XYZ} \\
+\multicolumn{6}{|l|}{3. Ładowanie filamentu} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Przepływy poboczne:}} \\
+\multicolumn{6}{|l|}{1a) Komunikat błędu podczas Selftest} \\
+\multicolumn{6}{|l|}{2a) Komunikat błędu podczas Kalibracji XYZ} \\ \hline
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Selftest} & \multicolumn{1}{l|}{2} & \multicolumn{1}{|l|}{wysoki }\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System przechodzi przez} \\ 
+\multicolumn{6}{|l|}{kolejne kroki testu.} \\
+\multicolumn{6}{|l|}{Użytkownik nadzoruje test oraz} \\
+\multicolumn{6}{|l|}{potencjalnie go uruchamia} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wywołany przez PU 1} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{lub wybranie w menu} & \multicolumn{3}{l|}{wewnętrzny/zewnętrzny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:} Wywoływany przez Kalibracja (Wizard)} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Test ekstrudera i wentylatora druku} \\
+\multicolumn{6}{|l|}{2. Test poprawności okablowania podgrzewanego stołu i termistora} \\
+\multicolumn{6}{|l|}{3. Test poprawności okablowania i funkcjonalności silników XYZ} \\
+\multicolumn{6}{|l|}{4. Test długości osi XY} \\
+\multicolumn{6}{|l|}{5. Test napięcia pasków XY} \\
+\multicolumn{6}{|l|}{6. Test napięcia pasków na kołach pasowych} \\
+\multicolumn{6}{|l|}{7. Komunikat o sukcesie} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Przepływy poboczne:}} \\
+\multicolumn{6}{|l|}{1a) Błąd: Front print fan/Left hotend fan - Not spinning} \\ 
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić przewody obydwu wentylatorów.} \\ 
+\multicolumn{6}{|l|}{2a) Błąd: Please check/ Not connected - Heater/ Thermistor} \\
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić przewody zasilania grzałki } \\ 
+\multicolumn{6}{|l|}{hotendu oraz przewody termistora} \\ 
+\multicolumn{6}{|l|}{2b) Błąd: Bed/ Heater - Wiring error} \\
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić wtyczki zasilania hotend i stołu } \\ 
+\multicolumn{6}{|l|}{3a) Błąd: Endstops - Wiring error - Z} \\
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić przewody sondy P.I.N.D.A.} \\
+\multicolumn{6}{|l|}{3b) Błąd: Endstop not hit - Motor Z} \\
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić czy głowica może} \\
+\multicolumn{6}{|l|}{się opuścić do samego dołu osi Z} \\
+\multicolumn{6}{|l|}{4a) Błąd: Axis length - \{XY\}} \\
+\multicolumn{6}{|l|}{Użytkownik powinien sprawdzić czy głowica porusza się bez przeszkód. } \\
+\multicolumn{6}{|l|}{4a) Błąd: Axis length - \{XY\}} \\
+\multicolumn{6}{|l|}{5a) Błąd: Loose pulley - Pulley\{XY\}} \\
+\multicolumn{6}{|l|}{Koło zębate jest luźne i obraca się na wałku silnika. } \\ 
+\hline
+
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Kalibracja XYZ} & \multicolumn{1}{l|}{3} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System wykonuje test} \\ 
+\multicolumn{6}{|l|}{Użytkownik nadzoruje test oraz} \\
+\multicolumn{6}{|l|}{potencjalnie go uruchamia} \\
+\multicolumn{6}{|l|}{Cel: zmierzenie pochylenia osi X, Y i Z} \\ 
+\multicolumn{6}{|l|}{i wypoziomowanie powierzchni druku} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wywołany przez PU 1} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{lub wybranie w menu} & \multicolumn{3}{l|}{wewnętrzny/zewnętrzny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:} Wywoływany przez Kalibracja (Wizard)} \\
+\multicolumn{6}{|l|}{\textbf{Generalizacja:} Kalibracja Z} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Drukarka zeruje osie X, Y oraz przesuwa oś Z na samą górę} \\
+\multicolumn{6}{|l|}{2. Użytkownik kładzie na stole arkusz papieru biurowego} \\
+\multicolumn{6}{|l|}{i przytrzymuje go pod dyszą.} \\
+\multicolumn{6}{|l|}{3. System sprawdza 4 punkty.} \\
+\multicolumn{6}{|l|}{4. Użytkownik ściąga kartkę i zakłada stalową blachę.} \\
+\multicolumn{6}{|l|}{5. System mierzy i zapisuje wysokości 9 punktów.} \\
+\multicolumn{6}{|l|}{6. Komunikat o sukcesie} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Przepływy poboczne:}} \\
+\multicolumn{6}{|l|}{3a) Dysza "łapie" papier} \\
+\multicolumn{6}{|l|}{Użytkownik powinien wyłączyć drukarkę i obniżyć sondę P.I.N.D.A.} \\ 
+\multicolumn{6}{|l|}{6a) Błąd: XYZ calibration failed. Bed calibration point was not found.} \\
+\multicolumn{6}{|l|}{Drukarka zatrzymuje się blisko punktu którego ni była w stanie wykryć.} \\
+\hline
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:} } & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:}} \\ 
+\multicolumn{4}{|l|}{Kalibracja Z} & \multicolumn{1}{l|}{4} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System wykonuje test} \\ 
+\multicolumn{6}{|l|}{Użytkownik nadzoruje test oraz potencjalnie go uruchamia} \\
+\multicolumn{6}{|l|}{Cel: zapis 9 punktów kalibracji w pamięci trwałej} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie w menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} zewnętrzny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:} Fragment Kalibracji XYZ} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Drukarka zeruje osie X, Y oraz przesuwa oś Z na samą górę. } \\
+\multicolumn{6}{|l|}{2. Drukarka mierzy 9 punktów i zapisuje je w pamięci trwałej.} \\
+\hline
+
+\end{tabular}
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Poziomowanie stołu roboczego} & \multicolumn{1}{l|}{5} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System wykonuje test} \\ 
+\multicolumn{6}{|l|}{Cel: poziomowanie stołu roboczego} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie w menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{} & \multicolumn{3}{l|}{zewnętrzny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:} Fragment Kalibracji XYZ} \\
+\multicolumn{6}{|l|}{\textbf{Rozszerzenie:} Kalibracja Z} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Drukarka zeruje osie X, Y oraz przesuwa oś Z na samą górę} \\
+\multicolumn{6}{|l|}{2. Drukarka sprawdza 9 punktów i mierzy odległość do arkusza blachy.} \\
+\multicolumn{6}{|l|}{3. Interpolacja punktów i tworzenie wirtualnej siatki stołu.} \\
+\hline
+
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Ładowanie filamentu} & \multicolumn{1}{l|}{6} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} Użytkownik} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} System ładuje filament} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie w menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{} & \multicolumn{3}{l|}{zewnętrzny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Powiązania:} Fragment Kalibracji (Wizard)} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Naciśnij pokrętło LCD aby wejść w menu główne.} \\
+\multicolumn{6}{|l|}{2. Obracając pokrętłem wybierz opcję Preheat i naciśnij pokrętło.} \\
+\multicolumn{6}{|l|}{Następnie wybierz materiał, którego będziesz używać do drukowania.} \\
+\multicolumn{6}{|l|}{Poczekaj aż dysza nagrzeje się do zadanej temperatury.} \\
+\multicolumn{6}{|l|}{3. Naciśnij pokrętło LCD aby wejść w menu główne.} \\
+\multicolumn{6}{|l|}{4. Włóż końcówkę filamentu w otwór na górze obudowy ekstrudera.} \\
+\multicolumn{6}{|l|}{5. Wybierz z menu Load filament i naciśnij pokrętło.} \\
+\multicolumn{6}{|l|}{6. Silnik ładuje filament do ekstrudera.} \\
+\hline
+
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Rozładowanie filamentu} & \multicolumn{1}{l|}{7} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} Użytkownik} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} Cel: Wyciągnięcie filamentu} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie w menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:}} \\ 
+\multicolumn{3}{|l|}{} & \multicolumn{3}{l|}{zewnętrzny} \\
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Naciśnij pokrętło LCD aby wejść w menu główne.} \\
+\multicolumn{6}{|l|}{2. Obracając pokrętłem wybierz opcję Preheat i naciśnij pokrętło.} \\
+\multicolumn{6}{|l|}{Następnie wybierz materiał, którego będziesz używać do drukowania.} \\
+\multicolumn{6}{|l|}{Poczekaj aż dysza nagrzeje się do zadanej temperatury.} \\
+\multicolumn{6}{|l|}{3. Naciśnij pokrętło LCD aby wejść w menu główne.} \\
+\multicolumn{6}{|l|}{4. Wybierz z menu Unload filament i naciśnij pokrętło.} \\
+\multicolumn{6}{|l|}{5. Wyciągnij filament z ekstrudera.} \\
+\hline
+
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Drukowanie z SD} & \multicolumn{1}{l|}{8} & \multicolumn{1}{|l|}{wysoki}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} Użytkownik} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} Drukarka drukuje wybrany model} \\ 
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie opcji z menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} zewnętrzny} \\ 
+\hline
+\multicolumn{6}{|l|}{\textbf{Zawieranie:} Poziomowanie stołu roboczego} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Użytkownik wybiera plik do wydruku} \\
+\multicolumn{6}{|l|}{2. System sprawdza czy plik (.gcode) jest kompletny.} \\
+\multicolumn{6}{|l|}{3. Poziomowanie stołu roboczego.} \\
+\multicolumn{6}{|l|}{4. Drukarka drukuje model.} \\
+\multicolumn{6}{|l|}{5. System mierzy i zapisuje wysokości 9 punktów.} \\
+\hline
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Power Panic} & \multicolumn{1}{l|}{9} & \multicolumn{1}{|l|}{średni}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} System} & \multicolumn{3}{l|}{\textbf{Typ opisu:} szczegółowy} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} Drukarka może wznowić druk po utracie napięcia.} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Utrata napięcia} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} zewnętrzny} \\ 
+\hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. System wykrywa utratę napięcia zasilania.} \\
+\multicolumn{6}{|l|}{2. System wyłącza podgrzewanie stołu oraz ekstrudera.} \\
+\multicolumn{6}{|l|}{3. System zapisuje pozycję głowicy.} \\
+\multicolumn{6}{|l|}{4. Drukarka podnosi głowicę ponad wydruk.} \\
+\multicolumn{6}{|l|}{5. Po przywróceniu zasilania drukarka pyta czy wznowić wydruk.} \\
+\hline
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Pause Print} & \multicolumn{1}{l|}{10} & \multicolumn{1}{|l|}{niski}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} Użytkownik} & \multicolumn{3}{l|}{\textbf{Typ opisu:} ogólny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} Użytkownik może zapausować drukowanie} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie opcji z menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} zewnętrzny} \\ 
+\hline
+\multicolumn{6}{|l|}{\textbf{Asocjacja:} Drukowanie z SD} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Drukarka zapausowuje drukowanie.} \\
+\hline
+\end{tabular}
+
+\newpage
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|p{3m}|p{3cm}|}
+\hline
+\multicolumn{4}{|l|}{\textbf{Nazwa PU:}} & \multicolumn{1}{l|}{\textbf{Numer PU:}} & \multicolumn{1}{|l|}{\textbf{Priorytet:} } \\ 
+\multicolumn{4}{|l|}{Stop Print} & \multicolumn{1}{l|}{11} & \multicolumn{1}{|l|}{niski}\\ \hline
+\multicolumn{3}{|l|}{\textbf{Aktor podstawowy:} Użytkownik} & \multicolumn{3}{l|}{\textbf{Typ opisu:} ogólny} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Udziałowcy i cele:} Użytkownik może zatrzymać drukowanie} \\ \hline
+\multicolumn{3}{|l|}{\textbf{Wyzwalacz:} Wybranie opcji z menu} & \multicolumn{3}{l|}{\textbf{Typ wyzwalacza:} zewnętrzny} \\ 
+\hline
+\multicolumn{6}{|l|}{\textbf{Asocjacja:} Drukowanie z SD} \\ \hline
+\multicolumn{6}{|l|}{\textbf{Zwykły przepływ zdarzeń:}} \\
+\multicolumn{6}{|l|}{1. Drukarka kończy drukowanie.} \\
+\hline
+\end{tabular}
+
+\end{enumerate}
+
+\end{document}
+
